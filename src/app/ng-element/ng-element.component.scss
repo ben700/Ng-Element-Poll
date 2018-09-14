@@ -1,4 +1,4 @@
-@import '~bootstrap/dist/scss/bootstrap.min.scss';
+@import '~bootstrap/scss/bootstrap.scss';
 
 .ng {
   background-image: url('../../assets/img/angular.png');
@@ -14,4 +14,8 @@
 
 .poll {
   background-size: cover;
+  p {
+    text-align: center;
+    bottom: 0.5em;
+  }
 }
