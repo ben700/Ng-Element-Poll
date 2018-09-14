@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+
+// import for our mock database
 import {
   AngularFirestoreDocument,
   AngularFirestore
@@ -16,7 +18,7 @@ export class NgElementComponent implements OnInit {
   // variables for the poll
   ngVote: number;
   vueVote: number;
-  ionVote: number;
+  reactVote: number;
 
   // checkers for our poll, given default false value
   hasVoted = false;
@@ -35,7 +37,46 @@ export class NgElementComponent implements OnInit {
     this.dbRef.valueChanges().subscribe(doc => {
       this.ngVote = doc.angular_vote;
       this.vueVote = doc.vue_vote;
-      this.ionVote = doc.ionic_vote;
+      this.reactVote = doc.react_vote;
     });
+  }
+
+  // add voting function
+  vote(userVote: string) {
+    // change loading value to true to change view
+    this.loading = true;
+    // run the database transaction, 2 args
+    // 1st arg is the the functio name, 2nd is the get function or the transaction itself
+    this.dbService.firestore
+      .runTransaction(transact => {
+        return transact.get(this.dbRef.ref).then(doc => {
+          const newVoteCount = doc.data()[userVote] + 1;
+          // update
+          transact.update(this.dbRef.ref, { [userVote]: newVoteCount });
+        });
+      })
+      // if successful, set data of the hasVoted and loading for view changes
+      // and log something to confirm voting success, logging is optional
+      .then(() => {
+        this.hasVoted = true;
+        this.loading = true;
+        console.log('Vote Submitted!');
+      })
+      // this is good practice, add an error message if something fails.
+      .catch(err => console.log('Voting Failed, ' + err));
+  }
+
+  // get voting percentage per each choices
+  get ngVotePercent() {
+    // return percentage value by adding the total vote count of all choices
+    // then divide by the choice vote count and finally multiply by 100
+    return (this.ngVote / (this.ngVote + this.vueVote + this.vueVote)) * 100;
+  }
+
+  get vueVotePercent() {
+    return (this.vueVote / (this.ngVote + this.vueVote + this.vueVote)) * 100;
+  }
+  get reactVotePercent() {
+    return (this.reactVote / (this.ngVote + this.vueVote + this.vueVote)) * 100;
   }
 }

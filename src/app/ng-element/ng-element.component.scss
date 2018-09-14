@@ -1,1 +1,17 @@
 @import '~bootstrap/dist/scss/bootstrap.min.scss';
+
+.ng {
+  background-image: url('../../assets/img/angular.png');
+}
+
+.vue {
+  background-image: url('../../assets/img/vue.png');
+}
+
+.react {
+  background-image: url('../../assets/img/react.png');
+}
+
+.poll {
+  background-attachment: cover;
+}

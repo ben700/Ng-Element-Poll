@@ -36,6 +36,8 @@ export class AppModule {
   constructor(private inj: Injector) {}
 
   ngDoBootstrap() {
+    // encasulate in a constant which component to be used to in creating custom element
+    // then the injector
     const custEl = createCustomElement(NgElementComponent, {
       injector: this.inj
     });
