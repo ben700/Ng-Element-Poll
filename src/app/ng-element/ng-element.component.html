@@ -3,20 +3,57 @@
 <div class="container mx-auto text-center">
 
   <div class="card">
+
     <div class="card-header">
-      <h1> Which front-end framework do you preferred working with?? </h1>
-      <h3> Choose and *Click on the images below </h3>
+      <div *ngIf="!hasVoted && !loading">
+        <h1> Which front-end framework do you preferred working with?? </h1>
+        <h3> Choose and *Click on the images below </h3>
+      </div>
+      <div *ngIf="loading">
+        <h3> Submitting Your Answer ... </h3>
+      </div>
+      <div *ngIf="hasVoted">
+        <h3> POLL RESULT </h3>
+      </div>
     </div>
+
     <div class="card-body">
-      <div class="col-md-4 col-lg-4 ng poll">
-        <p> Angular </p>
+
+      <div *ngIf="!hasVoted && !loading">
+        <div class="col-md-4 col-lg-4 poll" title="ANGULAR">
+          <div class="ng poll-img" (click)="vote('angular_vote')"></div>
+        </div>
+        <div class="col-md-4 col-lg-4 poll" title="VUE">
+          <div class="vue poll-img" (click)="vote('vue_vote')"></div>
+        </div>
+        <div class="col-md-4 col-lg-4 poll" title="REACT">
+          <div class="react poll-img" (click)="vote('react_vote')"></div>
+        </div>
       </div>
-      <div class="col-md-4 col-lg-4 vue poll">
-        <p> Vue </p>
+
+      <div *ngIf="hasVoted">
+        <span class="badge badge-pill badge-danger">
+          Angular : {{ ngVote }} ( {{ ngVotePercent | number : '2.1-2'}}%)
+        </span>
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped bg-danger" [style.width.%]="ngVotePercent"></div>
+        </div>
+        <br>
+        <span class="badge badge-pill badge-success">
+          Vue : {{ vueVote }} ( {{ vueVotePercent | number : '2.1-2'}}%)
+        </span>
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped bg-success" [style.width.%]="vueVotePercent"></div>
+        </div>
+        <br>
+        <span class="badge badge-pill badge-primary">
+          React : {{ reactVote }} ( {{ reactVotePercent | number : '2.1-2'}}%)
+        </span>
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped bg-primary" [style.width.%]="reactVotePercent"></div>
+        </div>
       </div>
-      <div class="col-md-4 col-lg-4 react poll">
-        <p> React </p>
-      </div>
+
     </div>
   </div>
 

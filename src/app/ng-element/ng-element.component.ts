@@ -59,7 +59,7 @@ export class NgElementComponent implements OnInit {
       // and log something to confirm voting success, logging is optional
       .then(() => {
         this.hasVoted = true;
-        this.loading = true;
+        this.loading = false;
         console.log('Vote Submitted!');
       })
       // this is good practice, add an error message if something fails.
