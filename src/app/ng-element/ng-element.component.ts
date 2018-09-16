@@ -20,7 +20,7 @@ export class NgElementComponent implements OnInit {
   vueVote: number;
   reactVote: number;
 
-  // checkers for our poll, given default false value
+  // checkers for our poll view, given default false value
   hasVoted = false;
   loading = false;
 
