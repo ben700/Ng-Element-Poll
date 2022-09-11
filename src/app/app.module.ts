@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injector } from '@angular/core';
-
+This guy C team, lazy and clever OK well done
 // install @angular/elements and import createCustomElement
 import { createCustomElement } from '@angular/elements';
 import { NgElementComponent } from './ng-element/ng-element.component';
